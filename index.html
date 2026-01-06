@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Desafio Geek 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .game {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #ff758f;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff4d6d;
+    }
+
+    .points {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game">
+  <h1>💖 Desafio Geek 💖</h1>
+  <div class="question" id="question"></div>
+  <div id="answers"></div>
+  <div class="points">Pontos: <span id="points">0</span> 💖</div>
+</div>
+
+<script>
+  const questions = [
+    {
+      q: "Qual anime tem um caderno que pode matar pessoas?",
+      a: ["Naruto", "Death Note", "One Piece"],
+      correct: 1
+    },
+    {
+      q: "Qual jogo tem um encanador de boné vermelho?",
+      a: ["Sonic", "Mario", "Zelda"],
+      correct: 1
+    },
+    {
+      q: "Qual desenho tem esponjas no fundo do mar?",
+      a: ["Bob Esponja", "Hora de Aventura", "Scooby-Doo"],
+      correct: 0
+    },
+    {
+      q: "Qual jogo envolve capturar criaturinhas?",
+      a: ["Minecraft", "Pokémon", "Among Us"],
+      correct: 1
+    }
+  ];
+
+  let current = 0;
+  let points = 0;
+
+  const questionEl = document.getElementById("question");
+  const answersEl = document.getElementById("answers");
+  const pointsEl = document.getElementById("points");
+
+  function loadQuestion() {
+    if (current >= questions.length) {
+      questionEl.innerHTML = "🎉 Parabéns! Você completou o desafio!";
+      answersEl.innerHTML = "<p>💖 Você ganhou meu coração 💖</p>";
+      return;
+    }
+
+    const q = questions[current];
+    questionEl.textContent = q.q;
+    answersEl.innerHTML = "";
+
+    q.a.forEach((answer, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = answer;
+      btn.onclick = () => checkAnswer(index);
+      answersEl.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(index) {
+    if (index === questions[current].correct) {
+      points += 10;
+      alert("Acertou! 💖 +10 pontos!");
+    } else {
+      alert("Quase! 😅");
+    }
+    pointsEl.textContent = points;
+    current++;
+    loadQuestion();
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
